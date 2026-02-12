@@ -1,137 +1,66 @@
-# Cypress DemoBlaze (BDD com Cucumber) — Manual de Instalação e Execução
+# Cypress DemoBlaze — E2E Automation (BDD / Cucumber)
 
-Este projeto automatiza cenários de teste no site **DemoBlaze** usando:
-- **Cypress** (automação de UI)
-- **BDD (Gherkin)** com **Cucumber Preprocessor** (`@badeball/cypress-cucumber-preprocessor`)
-- **Node.js + npm** (para instalar dependências e executar comandos)
-
-Os testes cobrem:
-- **Criação de conta**
-- **Remoção de item do carrinho (Monitors)**
-- **Compra com 3 produtos**
+Projeto de automação de testes E2E para o site **DemoBlaze**, usando **Cypress** com **BDD (Gherkin/Cucumber)**.  
+Os cenários simulam fluxos reais do usuário e geram evidências (screenshots) de sucesso e de falha.
 
 ---
 
-## Sumário
-1. [Pré-requisitos](#pré-requisitos)
-2. [Como baixar o projeto](#como-baixar-o-projeto)
-3. [Instalação do Node.js e npm](#instalação-do-nodejs-e-npm)
-4. [Instalação das dependências do projeto](#instalação-das-dependências-do-projeto)
-5. [Estrutura do projeto](#estrutura-do-projeto)
-6. [Como rodar os testes](#como-rodar-os-testes)
-   - [Rodar com Runner (modo interativo)](#rodar-com-runner-modo-interativo)
-   - [Rodar sem Runner (modo headless)](#rodar-sem-runner-modo-headless)
-7. [Como rodar apenas um cenário/feature](#como-rodar-apenas-um-cenáriofeature)
-8. [Screenshots e evidências](#screenshots-e-evidências)
-9. [Dicas e solução de problemas](#dicas-e-solução-de-problemas)
-10. [Tecnologias usadas](#tecnologias-usadas)
+## Visão geral
+
+### O que este projeto cobre
+- **Criação de conta** (signup + login)
+- **Carrinho**: adicionar item (Monitor) e remover, validando carrinho vazio (com prints antes/depois)
+- **Compra**: adicionar 3 produtos, finalizar pedido e validar sucesso
+
+### Principais destaques técnicos
+- BDD com arquivos `.feature` (Gherkin) para leitura simples
+- Steps reaproveitáveis em `commonSteps.js` e comandos em `commands.js`
+- Evidências automáticas:
+  - prints de sucesso em pontos-chave
+  - prints de falha via hook (`hooks.js`)
+- Execução via **Runner (UI)** e **Headless (CLI)**
 
 ---
 
-## Pré-requisitos
+## Requisitos
 
-Você precisa ter instalado na máquina:
-- **Node.js** (recomendado: versão LTS)
-- **npm** (vem junto com o Node)
-- **Git** (opcional, se você baixar por clone)
+- **Node.js (LTS)** e **npm**
+- (Opcional) Git, para clonar o repositório
 
-> Se você não sabe se já tem Node instalado, veja a seção **[Verificando instalações](#verificando-instalações)**.
-
----
-
-## Como baixar o projeto
-
-### Opção A — Baixar como ZIP (mais simples)
-1. Baixe o projeto como `.zip`
-2. Extraia em uma pasta, por exemplo: `Desktop/cypress-demoblaze`
-
-### Opção B — Clonar com Git
-1. Abra o terminal na pasta onde quer salvar o projeto
-2. Rode:
-   ```bash
-   git clone <URL_DO_REPOSITORIO>
-Entre na pasta:
-
-cd cypress-demoblaze
-Instalação do Node.js e npm
-Windows / macOS
-Acesse o site oficial do Node.js e baixe a versão LTS
-
-Instale normalmente (Next > Next > Finish)
-
-Verificando instalações
-Abra o terminal (Windows: PowerShell / CMD, macOS: Terminal) e rode:
-
+Verifique se está instalado:
+```bash
 node -v
 npm -v
-Se aparecerem versões (ex: v20.x.x), está tudo certo.
 
-Se der erro (ex: “node não é reconhecido”), reinstale o Node e confirme se marcou opção de adicionar ao PATH.
+Instalação
 
-Instalação das dependências do projeto
-Com o terminal aberto na pasta do projeto (onde está o package.json), execute:
+Clone o repositório (ou baixe como ZIP e extraia):
+
+git clone https://github.com/AlexandreSQA/cypress-demoblaze
+cd cypress-demoblaze
+
+
+Instale as dependências:
 
 npm install
-Isso vai baixar tudo o que o projeto precisa (Cypress, plugins, etc).
 
-Importante: na primeira vez pode demorar um pouco.
+Como executar
 
-Estrutura do projeto
-Pastas principais:
+O Cypress é executado via npx, sem necessidade de instalação global.
 
-cypress/e2e/features/
-
-Arquivos .feature com cenários em BDD (Gherkin)
-
-Exemplos:
-
-account.feature
-
-cart-removal.feature
-
-purchase.feature
-
-cypress/support/step_definitions/
-
-Implementação dos steps do Cucumber (JavaScript)
-
-Arquivos principais:
-
-commonSteps.js (steps reutilizáveis)
-
-hooks.js (Before/After, setup e prints de falha)
-
-cypress/support/commands.js
-
-Custom commands do Cypress (ex: login, signup, add to cart, checkout, etc)
-
-cypress/fixtures/user.json
-
-Arquivo gerado automaticamente com o usuário criado no signup
-
-cypress/screenshots/
-
-Evidências (prints) geradas pelos testes
-
-Como rodar os testes
-Existem duas formas principais:
-
-1) Rodar com Runner (modo interativo)
-Esse modo abre a interface do Cypress para você ver os testes rodando no navegador.
-
-No terminal, dentro do projeto, execute:
-
+Rodar com Runner (modo interativo)
 npx cypress open
-O Cypress vai abrir uma tela:
+
+
+Passos no Runner:
 
 Selecione E2E Testing
 
-Escolha um navegador (Chrome, Edge, Electron)
+Escolha um navegador (Chrome, Edge ou Electron)
 
 Clique em Start E2E Testing
 
-Você verá a lista de specs/features do lado esquerdo.
-Clique, por exemplo, em:
+Selecione a feature desejada:
 
 account.feature
 
@@ -139,91 +68,48 @@ cart-removal.feature
 
 purchase.feature
 
-Vantagens do Runner:
+Vantagens do Runner
 
-Você vê o teste passo a passo
+Visualização passo a passo dos testes
 
-Pode inspecionar elementos
+Possibilidade de inspecionar elementos
 
-Ótimo para debug
+Ideal para debug
 
-2) Rodar sem Runner (modo headless)
-Esse modo roda tudo no terminal, sem abrir janela interativa.
-
-No terminal, execute:
-
+Rodar sem Runner (modo headless)
 npx cypress run
-Isso roda todas as features.
 
-Vantagens do headless:
 
-Mais rápido
+Esse modo executa todas as features diretamente no terminal.
 
-Ideal para CI/CD (GitHub Actions, GitLab, Jenkins)
+Vantagens do headless
 
-Gera relatório no terminal e screenshots em caso de falha
+Execução mais rápida
 
-Como rodar apenas um cenário/feature
-Rodar apenas UMA feature no headless:
-Exemplo para rodar só o carrinho:
+Ideal para pipelines de CI/CD (GitHub Actions, GitLab, Jenkins)
+
+Rodar apenas uma feature
+
+Exemplos:
+
+npx cypress run --spec "cypress/e2e/features/account.feature"
 
 npx cypress run --spec "cypress/e2e/features/cart-removal.feature"
-Ou só o fluxo de compra:
 
 npx cypress run --spec "cypress/e2e/features/purchase.feature"
-Rodar apenas UMA feature no Runner:
-npx cypress open
 
-Clique na feature desejada na lista
+Evidências (Screenshots)
 
-Screenshots e evidências
-Prints de sucesso
-O projeto gera prints de sucesso em momentos importantes, como:
-
-SUCESSO_home_logada.png
-
-SUCESSO_compra_concluida.png
-
-CARRINHO_01_com_<produto>.png
-
-CARRINHO_02_sem_<produto>.png
-
-Prints de falha
-Em caso de falha, o hooks.js gera um print automático:
-
-FAIL_<nome_do_cenario>.png
-
-Onde ficam os prints?
-Eles ficam em:
+As evidências são geradas automaticamente em:
 
 cypress/screenshots/
-Dica: se você rodar os testes várias vezes, os prints podem acumular.
-Se quiser “limpar” antes de rodar, apague a pasta cypress/screenshots.
 
-
-Tecnologias usadas
-
-Node.js + npm
+Tecnologias utilizadas
 
 Cypress
 
-Cucumber Preprocessor:
+Cucumber Preprocessor (@badeball/cypress-cucumber-preprocessor)
 
-@badeball/cypress-cucumber-preprocessor
+Esbuild Preprocessor (@bahmutov/cypress-esbuild-preprocessor)
 
-Preprocessor bundler:
-
-@bahmutov/cypress-esbuild-preprocessor
-
-esbuild
-
-Execução rápida (resumo)
-Depois de instalar, os dois comandos principais são:
-
-Runner (interativo):
-
-npx cypress open
-
-Headless (terminal):
-
-npx cypress run
+Node.js / npm

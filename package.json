@@ -1,21 +1,19 @@
 {
   "name": "cypress-demoblaze",
   "version": "1.0.0",
-  "description": "Este projeto automatiza cenários de teste no site **DemoBlaze** usando:\r - **Cypress** (automação de UI)\r - **BDD (Gherkin)** com **Cucumber Preprocessor** (`@badeball/cypress-cucumber-preprocessor`)\r - **Node.js + npm** (para instalar dependências e executar comandos)",
-  "main": "cypress.config.js",
+  "description": "E2E test automation project using Cypress and BDD (Cucumber) for DemoBlaze.",
+  "private": true,
   "scripts": {
-  "test:open": "cypress open",
-  "test:run": "cypress run"
-},
-
-  "keywords": [],
+    "test:open": "cypress open",
+    "test:run": "cypress run"
+  },
   "author": "Alexandre de Santana",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^24.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
-    "cypress": "^15.10.0",
+    "cypress": "^13.10.0",
     "esbuild": "^0.27.3"
   }
 }
