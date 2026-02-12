@@ -24,25 +24,43 @@ Os cenários simulam fluxos reais do usuário e geram evidências (screenshots) 
 
 ## Requisitos
 
-- **Node.js (LTS)** e **npm**
-- (Opcional) Git, para clonar o repositório
+### Versões mínimas recomendadas
+- **Node.js:** `>= 18` (recomendado: **LTS**)
+- **npm:** `>= 9`
+- (Opcional) **Git**, para clonar o repositório
 
-Verifique se está instalado:
+> Observação: em versões antigas (ex.: Node 14), o `npm install` pode falhar devido a dependências modernas do Cypress e do ecossistema.
+
+### Verificar versões instaladas
 ```bash
 node -v
 npm -v
 
 Instalação
 
-Clone o repositório (ou baixe como ZIP e extraia):
+Você pode instalar de duas formas: via terminal (Git) ou via VS Code.
 
+Opção A — Clonar via terminal (Git)
 git clone https://github.com/AlexandreSQA/cypress-demoblaze
 cd cypress-demoblaze
 
+Opção B — Clonar direto pelo VS Code
 
-Instale as dependências:
+Abra o VS Code
 
-npm install
+Pressione Ctrl + Shift + P (Command Palette)
+
+Digite Git: Clone e selecione a opção
+
+Cole a URL do repositório: https://github.com/AlexandreSQA/cypress-demoblaze
+Escolha a pasta onde deseja salvar
+
+Quando o VS Code perguntar, clique em Open para abrir o projeto clonado
+
+Instalar dependências
+
+Dentro da pasta do projeto, execute: npm install
+
 
 Como executar
 
@@ -50,7 +68,6 @@ O Cypress é executado via npx, sem necessidade de instalação global.
 
 Rodar com Runner (modo interativo)
 npx cypress open
-
 
 Passos no Runner:
 
@@ -60,15 +77,16 @@ Escolha um navegador (Chrome, Edge ou Electron)
 
 Clique em Start E2E Testing
 
-Selecione a feature desejada:
+Selecione a feature desejada: (
 
 account.feature
 
 cart-removal.feature
 
 purchase.feature
+)
 
-Vantagens do Runner
+Vantagens do Runner     
 
 Visualização passo a passo dos testes
 
@@ -79,14 +97,16 @@ Ideal para debug
 Rodar sem Runner (modo headless)
 npx cypress run
 
-
 Esse modo executa todas as features diretamente no terminal.
+
 
 Vantagens do headless
 
 Execução mais rápida
 
 Ideal para pipelines de CI/CD (GitHub Actions, GitLab, Jenkins)
+
+
 
 Rodar apenas uma feature
 
@@ -98,12 +118,26 @@ npx cypress run --spec "cypress/e2e/features/cart-removal.feature"
 
 npx cypress run --spec "cypress/e2e/features/purchase.feature"
 
+
+
 Evidências (Screenshots)
 
 As evidências são geradas automaticamente em:
 
 cypress/screenshots/
 
+
+Exemplos de prints gerados:
+
+SUCESSO_home_logada.png
+
+CARRINHO_01_com_<produto>.png
+
+CARRINHO_02_sem_<produto>.png
+
+SUCESSO_compra_concluida.png
+
+FAIL_<nome_do_cenario>.png (em caso de falha)
 
 Observações importantes
 
@@ -113,8 +147,6 @@ cypress/fixtures/user.json
 
 
 Para forçar a criação de um novo usuário, basta apagar esse arquivo antes da execução.
-
-
 
 Tecnologias utilizadas
 
