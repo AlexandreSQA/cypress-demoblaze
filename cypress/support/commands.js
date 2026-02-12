@@ -26,7 +26,6 @@ Cypress.Commands.add("signupDemoblaze", (opts = {}) => {
     cy.get("@signupAlert").then((stub) => {
       const msg = stub.getCall(0)?.args?.[0] || "";
 
-      // fecha modal sempre e garante que fechou
       cy.get("#signInModal .close").click({ force: true });
       cy.get("#signInModal").should("not.be.visible");
       cy.get("body").click(0, 0);
@@ -96,7 +95,6 @@ Cypress.Commands.add("addProductToCart", (productName) => {
   cy.contains(".card-title", productName)
     .should("be.visible")
     .parents(".card")
-    // dentro do card existem 2 <a> (imagem e título); clicamos só no link do título
     .find("a.hrefch")
     .filter(":visible")
     .first()
@@ -115,7 +113,6 @@ Cypress.Commands.add("addProductToCart", (productName) => {
 })
 
 Cypress.Commands.add("placeOrder", () => {
-  // garante que estamos no modal correto e visível
   cy.get("#orderModal", { timeout: 20000})
     .should("have.class", "show")
     .and("be.visible")
@@ -127,7 +124,6 @@ Cypress.Commands.add("placeOrder", () => {
       cy.get("#month").clear().type("12");
       cy.get("#year").clear().type("2028");
 
-      // pega só UM botão Purchase (o visível) e clica
       cy.contains("button", /^Purchase$/)
         .filter(":visible")
         .first()
@@ -135,12 +131,10 @@ Cypress.Commands.add("placeOrder", () => {
         .click();
     });
 
-  // confirma que a compra concluiu
   cy.get(".sweet-alert", { timeout: 20000 }).should("be.visible");
   cy.contains(".sweet-alert h2", "Thank you for your purchase", { timeout: 20000})
     .should("be.visible");
 
-  // se quiser evidência no momento certo
   if (cy.screenshotStable) cy.screenshotStable("SUCESSO_compra_concluida");
 });
 

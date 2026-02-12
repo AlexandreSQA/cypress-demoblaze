@@ -1,6 +1,6 @@
 
 
-// ✅ cria o usuário UMA ÚNICA VEZ na execução inteira
+
 import { After, Before } from "@badeball/cypress-cucumber-preprocessor";
 
 Before(() => {

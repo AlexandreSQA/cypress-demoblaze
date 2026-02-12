@@ -104,6 +104,18 @@ As evidências são geradas automaticamente em:
 
 cypress/screenshots/
 
+
+Observações importantes
+
+O usuário de teste é gerado automaticamente e persistido em:
+
+cypress/fixtures/user.json
+
+
+Para forçar a criação de um novo usuário, basta apagar esse arquivo antes da execução.
+
+
+
 Tecnologias utilizadas
 
 Cypress
